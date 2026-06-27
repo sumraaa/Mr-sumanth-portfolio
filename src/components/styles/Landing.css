@@ -395,3 +395,5 @@ h2.landing-info-h2 {
     font-size: 75px;
   }
 }
+
+.landing-container { display: flex !important; flex-direction: row !important; height: 100vh !important; overflow: hidden !important; background-color: #000 !important; } .hero-text { flex: 1; }
