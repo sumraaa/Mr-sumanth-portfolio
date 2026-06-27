@@ -21,11 +21,14 @@
 }
 
 .techstack-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 2.5rem;
   width: 100%;
   max-width: 900px;
+  margin: 0 auto;
 }
 
 .tech-item {
@@ -40,6 +43,8 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.3s ease;
   cursor: pointer;
+  flex: 1 1 120px;
+  max-width: 180px;
 }
 
 .tech-item img {

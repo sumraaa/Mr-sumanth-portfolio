@@ -3,8 +3,8 @@ import "./styles/TechStack.css";
 const techIcons = [
   { name: "C", src: "/images/c.svg" },
   { name: "C++", src: "/images/cplusplus.svg" },
-  { name: "JavaScript", src: "/images/javascript.webp" },
-  { name: "R", src: "/images/r.svg" },
+  { name: "SQL", src: "/images/mysql.webp" },
+  { name: "Antigravity", src: "/images/antigravity.png" },
   { name: "GitHub", src: "/images/github.svg" },
   { name: "Vercel", src: "/images/vercel.svg" },
 ];
