@@ -390,3 +390,96 @@ h2.landing-info-h2 {
     line-height: 80px;
   }
 }
+
+/* ── Ambient Aurora Glows ── */
+.aurora-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(150px);
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+  animation: auroraBreathe 15s ease-in-out infinite alternate;
+}
+
+.aurora-1 {
+  width: 40vw;
+  height: 40vw;
+  background-color: #00ffff;
+  top: 10%;
+  left: 10%;
+}
+
+.aurora-2 {
+  width: 35vw;
+  height: 35vw;
+  background-color: #ff00ff;
+  bottom: 20%;
+  right: 15%;
+  animation-delay: -5s;
+}
+
+.aurora-3 {
+  width: 30vw;
+  height: 30vw;
+  background-color: #4a00e0;
+  top: 40%;
+  left: 40%;
+  animation-delay: -10s;
+}
+
+@keyframes auroraBreathe {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.1) translate(2vw, 2vw); }
+  100% { transform: scale(0.9) translate(-2vw, -2vw); }
+}
+
+/* ── Digital Dust ── */
+.digital-dust {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.digital-dust::before,
+.digital-dust::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: 
+    10vw 20vh rgba(255, 255, 255, 0.5),
+    30vw 50vh rgba(0, 255, 255, 0.4),
+    50vw 80vh rgba(255, 255, 255, 0.3),
+    70vw 10vh rgba(0, 255, 255, 0.5),
+    90vw 60vh rgba(255, 255, 255, 0.4),
+    15vw 70vh rgba(0, 255, 255, 0.3),
+    40vw 30vh rgba(255, 255, 255, 0.5),
+    60vw 90vh rgba(0, 255, 255, 0.4),
+    80vw 40vh rgba(255, 255, 255, 0.3),
+    25vw 15vh rgba(0, 255, 255, 0.5),
+    55vw 65vh rgba(255, 255, 255, 0.4),
+    85vw 25vh rgba(0, 255, 255, 0.3),
+    5vw 85vh rgba(255, 255, 255, 0.5),
+    45vw 5vh rgba(0, 255, 255, 0.4),
+    75vw 75vh rgba(255, 255, 255, 0.3),
+    95vw 35vh rgba(0, 255, 255, 0.5),
+    20vw 45vh rgba(255, 255, 255, 0.4),
+    65vw 15vh rgba(0, 255, 255, 0.3);
+  animation: dustDrift 60s linear infinite;
+}
+
+.digital-dust::after {
+  top: 100vh;
+}
+
+@keyframes dustDrift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100vh); }
+}
