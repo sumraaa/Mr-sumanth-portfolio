@@ -118,10 +118,23 @@ function Pointer({ isActive }: PointerProps) {
   );
 }
 
+const isWebGLSupported = (() => {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+    );
+  } catch (e) {
+    return false;
+  }
+})();
+
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
+    if (!isWebGLSupported) return;
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
       const threshold = document
@@ -159,6 +172,17 @@ const TechStack = () => {
         })
     );
   }, []);
+
+  if (!isWebGLSupported) {
+    return (
+      <div className="techstack">
+        <h2> My Techstack</h2>
+        <div style={{ textAlign: "center", padding: "60px 20px", color: "var(--accentColor)", opacity: 0.8, fontSize: "1.2rem", letterSpacing: "1px" }}>
+          WebGL not supported. Floating physics icons disabled.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="techstack">

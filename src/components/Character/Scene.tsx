@@ -27,10 +27,19 @@ const Scene = () => {
       const aspect = container.width / container.height;
       const scene = sceneRef.current;
 
-      const renderer = new THREE.WebGLRenderer({
-        alpha: true,
-        antialias: true,
-      });
+      let renderer: THREE.WebGLRenderer;
+      try {
+        renderer = new THREE.WebGLRenderer({
+          alpha: true,
+          antialias: true,
+        });
+      } catch (e) {
+        console.error("WebGL not supported or renderer creation failed", e);
+        setLoading(100);
+        return () => {
+          scene.clear();
+        };
+      }
       renderer.setSize(container.width, container.height);
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -145,16 +154,18 @@ const Scene = () => {
       };
       animate();
       return () => {
-        renderer.domElement.removeEventListener("webglcontextlost", handleContextLost, false);
+        if (renderer) {
+          renderer.domElement.removeEventListener("webglcontextlost", handleContextLost, false);
+          renderer.dispose();
+          if (canvasDiv.current && renderer.domElement) {
+            canvasDiv.current.removeChild(renderer.domElement);
+          }
+        }
         clearTimeout(debounce);
         scene.clear();
-        renderer.dispose();
         window.removeEventListener("resize", () =>
           handleResize(renderer, camera, canvasDiv, character!)
         );
-        if (canvasDiv.current) {
-          canvasDiv.current.removeChild(renderer.domElement);
-        }
         if (landingDiv) {
           document.removeEventListener("mousemove", onMouseMove);
           landingDiv.removeEventListener("touchstart", onTouchStart);
