@@ -12,6 +12,7 @@ import {
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../Loading";
+import { setCharTimeline, setAllTimeline } from "../utils/GsapScroll";
 
 const Scene = () => {
   const canvasDiv = useRef<HTMLDivElement | null>(null);
@@ -35,6 +36,9 @@ const Scene = () => {
         });
       } catch (e) {
         console.error("WebGL not supported or renderer creation failed", e);
+        if (canvasDiv.current) canvasDiv.current.style.display = "none";
+        setCharTimeline(null, new THREE.PerspectiveCamera());
+        setAllTimeline();
         setLoading(100);
         return () => {
           scene.clear();
@@ -92,6 +96,9 @@ const Scene = () => {
           box.position.y = 5;
           scene.add(box);
           
+          setCharTimeline(null, camera);
+          setAllTimeline();
+
           progress.loaded().then(() => {
             setTimeout(() => {
               light.turnOnLights();
