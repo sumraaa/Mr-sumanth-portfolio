@@ -11,17 +11,46 @@ import {
   RapierRigidBody,
 } from "@react-three/rapier";
 
-const textureLoader = new THREE.TextureLoader();
-textureLoader.setCrossOrigin('anonymous');
+const loadTextureWithWhiteBackground = (url: string) => {
+  const canvas = document.createElement("canvas");
+  canvas.width = 256;
+  canvas.height = 256;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return new THREE.Texture();
+
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  ctx.arc(128, 128, 128, 0, Math.PI * 2);
+  ctx.fill();
+
+  const texture = new THREE.CanvasTexture(canvas);
+  if (typeof window !== "undefined") {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      ctx.fillStyle = "#ffffff";
+      ctx.beginPath();
+      ctx.arc(128, 128, 128, 0, Math.PI * 2);
+      ctx.fill();
+
+      const size = 140;
+      ctx.drawImage(img, (256 - size) / 2, (256 - size) / 2, size, size);
+      texture.needsUpdate = true;
+    };
+    img.src = url;
+  }
+  return texture;
+};
+
 const imageUrls = [
-  "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg",
-  "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg",
-  "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
-  "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg",
-  "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg",
-  "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg",
+  "/images/c.png",
+  "/images/cplusplus.png",
+  "/images/javascript.webp",
+  "/images/r.png",
+  "/images/github.png",
+  "/images/vercel.png",
 ];
-const textures = imageUrls.map((url) => textureLoader.load(url));
+const textures = imageUrls.map((url) => loadTextureWithWhiteBackground(url));
 
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28);
 
@@ -137,9 +166,9 @@ const TechStack = () => {
     if (!isWebGLSupported) return;
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const threshold = document
-        .getElementById("work")!
-        .getBoundingClientRect().top;
+      const workElem = document.getElementById("work");
+      if (!workElem) return;
+      const threshold = workElem.getBoundingClientRect().top;
       setIsActive(scrollY > threshold);
     };
     document.querySelectorAll(".header a").forEach((elem) => {
@@ -162,13 +191,15 @@ const TechStack = () => {
     return textures.map(
       (texture) =>
         new THREE.MeshPhysicalMaterial({
+          color: "#ffffff",
           map: texture,
           emissive: "#ffffff",
           emissiveMap: texture,
-          emissiveIntensity: 0.3,
-          metalness: 0.5,
-          roughness: 1,
-          clearcoat: 0.1,
+          emissiveIntensity: 0.15,
+          metalness: 0.1,
+          roughness: 0.3,
+          clearcoat: 0.5,
+          clearcoatRoughness: 0.1,
         })
     );
   }, []);

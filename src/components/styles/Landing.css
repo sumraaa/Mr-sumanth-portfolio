@@ -213,10 +213,13 @@
   margin: 0;
 }
 
-.landing-info h2 {
+.landing-h2-wrapper {
+  position: relative;
+  margin-top: 10px;
+}
+
+.landing-h2-wrapper h2 {
   margin: 0;
-  margin-top: -20px;
-  margin-left: 20px;
   font-family: "Geist", sans-serif;
   font-weight: 600;
   font-size: 32px;
@@ -226,6 +229,16 @@
   flex-wrap: nowrap;
   text-transform: uppercase;
   letter-spacing: 2px;
+  margin-left: -5px;
+}
+
+.landing-h2-wrapper h2:last-child {
+  position: absolute;
+  top: 1px;
+  left: 1.5px;
+  width: 100%;
+  color: #fff;
+  pointer-events: none;
 }
 
 .landing-h2-info-1 {
@@ -235,13 +248,7 @@
 
 h2.landing-info-h2 {
   color: #14b8a6;
-  font-size: 42px;
   width: 120%;
-  margin: 0;
-  font-family: "Geist", sans-serif;
-  font-weight: 600;
-  position: relative;
-  margin-left: -5px;
 }
 
 .landing-h2-2 {
@@ -284,13 +291,9 @@ h2.landing-info-h2 {
     line-height: 30px;
   }
 
-  .landing-info h2 {
-    font-size: 35px;
-    line-height: 40px;
-  }
-
-  h2.landing-info-h2 {
+  .landing-h2-wrapper h2 {
     font-size: 38px;
+    line-height: 45px;
   }
 }
 
@@ -312,13 +315,9 @@ h2.landing-info-h2 {
     font-size: 25px;
   }
 
-  .landing-info h2 {
-    font-size: 45px;
-    line-height: 42px;
-  }
-
-  h2.landing-info-h2 {
+  .landing-h2-wrapper h2 {
     font-size: 55px;
+    line-height: 60px;
   }
 }
 
@@ -386,12 +385,8 @@ h2.landing-info-h2 {
     font-size: 35px;
   }
 
-  .landing-info h2 {
-    font-size: 65px;
-    line-height: 62px;
-  }
-
-  h2.landing-info-h2 {
+  .landing-h2-wrapper h2 {
     font-size: 75px;
+    line-height: 80px;
   }
 }
