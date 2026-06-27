@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { useRef, useMemo, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
+import ErrorBoundary from "./ErrorBoundary";
 
 import { EffectComposer, N8AO } from "@react-three/postprocessing";
 import {
@@ -219,43 +220,45 @@ const TechStack = () => {
     <div className="techstack">
       <h2> My Techstack</h2>
 
-      <Canvas
-        shadows
-        gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
-        camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
-        onCreated={(state) => {
-          state.gl.toneMappingExposure = 1.5;
-          state.gl.domElement.addEventListener('webglcontextlost', (e) => e.preventDefault(), false);
-        }}
-        className="tech-canvas"
-      >
-        <Suspense fallback={null}>
-          <ambientLight intensity={1} />
-          <spotLight
-            position={[20, 20, 25]}
-            penumbra={1}
-            angle={0.2}
-            color="white"
-            castShadow
-            shadow-mapSize={[512, 512]}
-          />
-          <directionalLight position={[0, 5, -4]} intensity={2} />
-          <Physics gravity={[0, 0, 0]}>
-            <Pointer isActive={isActive} />
-            {spheres.map((props, i) => (
-              <SphereGeo
-                key={i}
-                {...props}
-                material={materials[Math.floor(Math.random() * materials.length)]}
-                isActive={isActive}
-              />
-            ))}
-          </Physics>
-          <EffectComposer enableNormalPass={false}>
-            <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
-          </EffectComposer>
-        </Suspense>
-      </Canvas>
+      <ErrorBoundary>
+        <Canvas
+          shadows
+          gl={{ alpha: true, stencil: false, depth: false, antialias: false, powerPreference: "default", failIfMajorPerformanceCaveat: false }}
+          camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
+          onCreated={(state) => {
+            state.gl.toneMappingExposure = 1.5;
+            state.gl.domElement.addEventListener('webglcontextlost', (e) => e.preventDefault(), false);
+          }}
+          className="tech-canvas"
+        >
+          <Suspense fallback={null}>
+            <ambientLight intensity={1} />
+            <spotLight
+              position={[20, 20, 25]}
+              penumbra={1}
+              angle={0.2}
+              color="white"
+              castShadow
+              shadow-mapSize={[512, 512]}
+            />
+            <directionalLight position={[0, 5, -4]} intensity={2} />
+            <Physics gravity={[0, 0, 0]}>
+              <Pointer isActive={isActive} />
+              {spheres.map((props, i) => (
+                <SphereGeo
+                  key={i}
+                  {...props}
+                  material={materials[Math.floor(Math.random() * materials.length)]}
+                  isActive={isActive}
+                />
+              ))}
+            </Physics>
+            <EffectComposer enableNormalPass={false}>
+              <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
+            </EffectComposer>
+          </Suspense>
+        </Canvas>
+      </ErrorBoundary>
     </div>
   );
 };

@@ -32,7 +32,9 @@ const Scene = () => {
       try {
         renderer = new THREE.WebGLRenderer({
           alpha: true,
-          antialias: true,
+          antialias: false,
+          powerPreference: "default",
+          failIfMajorPerformanceCaveat: false,
         });
       } catch (e) {
         console.error("WebGL not supported or renderer creation failed", e);
