@@ -8,14 +8,14 @@ const projects = [
     title: "Medical Emergency SOS",
     category: "Cross-Platform Mobile Application",
     tools: "Designed to enhance emergency medical response times during road accidents, built for all types of OS users.",
-    image: "/images/preview1.png",
+    image: "/images/sos emer.png",
     link: "#",
   },
   {
     title: "Commute",
     category: "Intelligent Transit Platform",
     tools: "Leverages predictive analytics and real-time spatial data to dynamically optimize daily routes, featuring an automated load-balancing algorithm.",
-    image: "/images/Maxlife.png",
+    image: "/images/commute.jpeg",
     link: "#",
   },
 ];

@@ -43,12 +43,12 @@ const loadTextureWithWhiteBackground = (url: string) => {
 };
 
 const imageUrls = [
-  "/images/c.png",
-  "/images/cplusplus.png",
+  "/images/c.svg",
+  "/images/cplusplus.svg",
   "/images/javascript.webp",
-  "/images/r.png",
-  "/images/github.png",
-  "/images/vercel.png",
+  "/images/r.svg",
+  "/images/github.svg",
+  "/images/vercel.svg",
 ];
 const textures = imageUrls.map((url) => loadTextureWithWhiteBackground(url));
 
