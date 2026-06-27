@@ -25,9 +25,10 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  align-content: center;
   gap: 2.5rem;
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
